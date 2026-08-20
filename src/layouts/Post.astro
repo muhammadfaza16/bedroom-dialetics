@@ -1,0 +1,85 @@
+---
+import Base from './Base.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+  readingTime: number;
+}
+
+const { post, readingTime } = Astro.props;
+const { title, date, excerpt } = post.data;
+
+const wordCount = post.body?.split(/\s+/).filter(Boolean).length ?? 0;
+
+const formattedDate = date.toLocaleDateString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+});
+
+const allPosts = await getCollection('posts');
+const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const currentIndex = sortedPosts.findIndex(p => p.id === post.id);
+const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+const hasBoth = prevPost && nextPost;
+---
+
+<Base title={title} description={excerpt} showHeader={false}>
+  <article>
+    <div class="read-top-nav">
+      <a href="/" class="back-to-stream">&larr; Back to Journal</a>
+    </div>
+
+    <header class="read-header">
+      <div class="read-meta-line">
+        <time datetime={date.toISOString()}>{formattedDate}</time>
+        <span class="sep">/</span>
+        <span>{readingTime} min read</span>
+        <span class="sep">/</span>
+        <span>{wordCount} words</span>
+      </div>
+      <h1 class="read-title">{title}</h1>
+      {excerpt && <p class="read-lead">{excerpt}</p>}
+    </header>
+
+    <div class="prose" id="articleBody">
+      <slot />
+    </div>
+
+    <footer class="post-footer-nav">
+      {(prevPost || nextPost) && (
+        <nav class={`post-prev-next${hasBoth ? '' : ' single'}`} aria-label="Essay navigation">
+          {prevPost && (
+            <a href={`/posts/${prevPost.id}`} class="nav-link prev-link">
+              <span class="nav-label">&larr; Previous</span>
+              <span class="nav-title">{prevPost.data.title}</span>
+            </a>
+          )}
+          {nextPost && (
+            <a href={`/posts/${nextPost.id}`} class={`nav-link next-link${!prevPost ? ' solo-next' : ''}`}>
+              <span class="nav-label">Next &rarr;</span>
+              <span class="nav-title">{nextPost.data.title}</span>
+            </a>
+          )}
+        </nav>
+      )}
+
+      <div class="post-bottom-actions">
+        <a href="/">&larr; Back to Journal</a>
+        <button id="scrollToTopBtn" type="button">Back to top &uarr;</button>
+      </div>
+    </footer>
+  </article>
+
+  <script is:inline>
+    const topBtn = document.getElementById('scrollToTopBtn');
+    if (topBtn) {
+      topBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  </script>
+</Base>

@@ -1,0 +1,115 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  showHeader?: boolean;
+}
+
+const { title, description = "Bedroom Dialectics — A personal journal by Muhammad Faza on life, quiet tensions, and late-night philosophy.", showHeader = true } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://bedroom-dialectics.vercel.app');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Bedroom Dialectics RSS"
+      href="/rss.xml"
+    />
+
+    <!-- Google Fonts: Newsreader (Full Optical Size 6-72) + Plus Jakarta Sans + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>{title === 'Bedroom Dialectics' ? 'Bedroom Dialectics — Muhammad Faza' : `${title} — Bedroom Dialectics`}</title>
+
+    <script is:inline>
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+    </script>
+  </head>
+  <body>
+    <!-- 2px Reading Progress Line -->
+    <div id="readingProgress" class="reading-progress-line" aria-hidden="true"></div>
+
+    <div class="wrap">
+      {showHeader && (
+        <header class="site-header">
+          <a href="/" class="masthead-title">Bedroom Dialectics</a>
+          <div class="masthead-tagline">A journal by Muhammad Faza</div>
+          <nav>
+            <a href="/" aria-current={Astro.url.pathname === '/' ? 'page' : undefined}>Writing</a>
+            <a href="/about" aria-current={Astro.url.pathname === '/about' ? 'page' : undefined}>About</a>
+            <button id="themeToggleBtn" class="theme-btn" type="button" aria-label="Toggle theme">
+              theme
+            </button>
+          </nav>
+        </header>
+      )}
+
+      <main>
+        <slot />
+      </main>
+
+      {showHeader && (
+        <footer>
+          <p>&copy; {new Date().getFullYear()} Bedroom Dialectics &nbsp;&middot;&nbsp; Written by Muhammad Faza</p>
+        </footer>
+      )}
+    </div>
+
+    <script is:inline>
+      // Reading Progress Line
+      window.addEventListener('scroll', () => {
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = total > 0 ? (window.scrollY / total) * 100 : 0;
+        const bar = document.getElementById('readingProgress');
+        if (bar) bar.style.width = progress + '%';
+      }, { passive: true });
+
+      // Theme Toggle with keyboard shortcut 't'
+      const themeBtn = document.getElementById('themeToggleBtn');
+      function toggleTheme() {
+        const current = document.documentElement.getAttribute('data-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        let next;
+        if (!current) {
+          next = prefersDark ? 'light' : 'dark';
+        } else {
+          next = current === 'dark' ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      }
+      if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+
+      window.addEventListener('keydown', (e) => {
+        const isEditing = ['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName);
+        if (e.key.toLowerCase() === 't' && !isEditing) {
+          toggleTheme();
+        }
+      });
+    </script>
+  </body>
+</html>
