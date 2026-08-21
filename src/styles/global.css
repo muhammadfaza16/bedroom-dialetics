@@ -126,7 +126,7 @@ a:focus:not(:focus-visible) {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
   width: 100%;
   overflow: hidden;
 }
@@ -1143,11 +1143,11 @@ footer {
   }
 
   .header-hero {
-    margin-bottom: 1.4rem;
+    margin-bottom: 1.5rem;
   }
 
   .header-art-container {
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.55rem;
   }
 
   .ascii-art-desktop {
