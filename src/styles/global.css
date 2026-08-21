@@ -3,16 +3,16 @@
    ========================================================================== */
 
 :root {
-  --bg:           #f8f8f8;
-  --bg-surface:   #f0f0f0;
-  --bg-subtle:    #e8e8e8;
-  --text:         #111111;
-  --text-muted:   #444444;
-  --text-faint:   #777777;
-  --border:       #e2e2e2;
-  --border-strong:#c0c0c0;
-  --accent:       #cd241f;
-  --selection:    #e8e2d8;
+  --bg:           #171717;
+  --bg-surface:   #1f1f1f;
+  --bg-subtle:    #262626;
+  --text:         #fbfbfb;
+  --text-muted:   #a5a5a5;
+  --text-faint:   #666666;
+  --border:       #282828;
+  --border-strong:#3a3a3a;
+  --accent:       #ffb650;
+  --selection:    #33281c;
 
   --font-mono: "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
 
@@ -32,19 +32,17 @@
   --selection:    #33281c;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg:           #171717;
-    --bg-surface:   #1f1f1f;
-    --bg-subtle:    #262626;
-    --text:         #fbfbfb;
-    --text-muted:   #a5a5a5;
-    --text-faint:   #666666;
-    --border:       #282828;
-    --border-strong:#363636;
-    --accent:       #ffb650;
-    --selection:    #33281c;
-  }
+[data-theme="light"] {
+  --bg:           #f8f8f8;
+  --bg-surface:   #f0f0f0;
+  --bg-subtle:    #e8e8e8;
+  --text:         #111111;
+  --text-muted:   #444444;
+  --text-faint:   #777777;
+  --border:       #e2e2e2;
+  --border-strong:#c0c0c0;
+  --accent:       #cd241f;
+  --selection:    #e8e2d8;
 }
 
 /* ==========================================================================
@@ -273,20 +271,13 @@ a:focus:not(:focus-visible) {
   height: 15px;
   border-radius: 50%;
   display: inline-block;
-  background: linear-gradient(90deg, #111111 50%, #dedede 50%);
-  box-shadow: 0 0 0 1px var(--border-strong);
-}
-
-[data-theme="dark"] .theme-split-circle {
   background: linear-gradient(90deg, #5b5b5b 50%, #ffb650 50%);
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .theme-split-circle {
-    background: linear-gradient(90deg, #5b5b5b 50%, #ffb650 50%);
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
-  }
+[data-theme="light"] .theme-split-circle {
+  background: linear-gradient(90deg, #111111 50%, #dedede 50%);
+  box-shadow: 0 0 0 1px var(--border-strong);
 }
 
 .header-divider {

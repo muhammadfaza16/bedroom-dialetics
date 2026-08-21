@@ -157,6 +157,8 @@ const mobileFrames = [
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme) {
         document.documentElement.setAttribute('data-theme', savedTheme);
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
       }
     </script>
   </head>
@@ -218,14 +220,8 @@ const mobileFrames = [
       // Theme Toggle with keyboard shortcut 't'
       const themeBtn = document.getElementById('themeToggleBtn');
       function toggleTheme() {
-        const current = document.documentElement.getAttribute('data-theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        let next;
-        if (!current) {
-          next = prefersDark ? 'light' : 'dark';
-        } else {
-          next = current === 'dark' ? 'light' : 'dark';
-        }
+        const current = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = current === 'light' ? 'dark' : 'light';
         document.documentElement.setAttribute('data-theme', next);
         localStorage.setItem('theme', next);
       }
