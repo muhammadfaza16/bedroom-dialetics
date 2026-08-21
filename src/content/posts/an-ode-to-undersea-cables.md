@@ -13,6 +13,9 @@ Because our interfaces are sleek, white, and frictionless, we easily forget that
 
 ## The Glass Fibers at the Bottom of the Sea
 
+![Cross-section of an armored undersea fiber optic cable pulsing with light at the ocean floor, while a repair ship works in the distance above](/images/posts/an-ode-to-undersea-cables.jpg)
+*Figure: The actual physical spine of the global internet—a bundle of hair-thin glass strands wrapped in steel armor, resting in the abyss and maintained by specialized repair ships.*
+
 Right now, as you read these words, roughly 99% of all intercontinental internet traffic does not travel through satellites. It travels through about 500 fiber-optic cables resting on the pitch-black floor of the world's oceans.
 
 These cables are not massive steel tunnels. The actual data-carrying core of an undersea cable is a bundle of glass strands barely thicker than a human hair, wrapped in layers of petroleum jelly, copper sheathing, steel wire armor, and high-density polyethylene.
