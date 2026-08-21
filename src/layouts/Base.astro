@@ -13,7 +13,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://bedroom-
 // Normalize pathname to handle trailing slashes seamlessly
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
-const asciiFrames = [
+const desktopFrames = [
 `+------------------------------------------------------------------+
 |  .     *        .        *      .--.    *        .        *   .  |
 |     *      .        *          (    )       *        .      *    |
@@ -70,7 +70,56 @@ const asciiFrames = [
 |  [ library ]  |       [ open journal ]       |     [ coffee ]    |
 +---------------+------------------------------+-------------------+`
 ];
-const asciiArt = asciiFrames[0];
+
+const mobileFrames = [
+`+-------------------------------------+
+|  *     .      .--.      .      *    |
+|     *        (    )        *     .  |
++-------------------------------------+
+|  +-----------------------+   )  )   |
+|  | > thoughts.txt        |  (  (    |
+|  | --------------------- | .------. |
+|  | writing at 2:00 am..._| |      |_|
+|  +-----------------------+ |______|/|
+|     [ open journal ]      [ coffee ]|
++-------------------------------------+`,
+
+`+-------------------------------------+
+|     *        .--.      *        .   |
+|  .     *    (    )        .   *     |
++-------------------------------------+
+|  +-----------------------+  (  (    |
+|  | > thoughts.txt        |   )  )   |
+|  | --------------------- | .------. |
+|  | writing at 2:00 am..._| |      |_|
+|  +-----------------------+ |______|/|
+|     [ open journal ]      [ coffee ]|
++-------------------------------------+`,
+
+`+-------------------------------------+
+|  .     *      .--.        *     .   |
+|     .        (    )    *        .   |
++-------------------------------------+
+|  +-----------------------+   )  (   |
+|  | > thoughts.txt        |  (  )    |
+|  | --------------------- | .------. |
+|  | writing at 2:00 am... | |      |_|
+|  +-----------------------+ |______|/|
+|     [ open journal ]      [ coffee ]|
++-------------------------------------+`,
+
+`+-------------------------------------+
+|     .        .--.    .        *     |
+|  *     .    (    )      *        .  |
++-------------------------------------+
+|  +-----------------------+  (  )    |
+|  | > thoughts.txt        |   )  (   |
+|  | --------------------- | .------. |
+|  | writing at 2:00 am... | |      |_|
+|  +-----------------------+ |______|/|
+|     [ open journal ]      [ coffee ]|
++-------------------------------------+`
+];
 ---
 
 <!doctype html>
@@ -121,7 +170,8 @@ const asciiArt = asciiFrames[0];
           <div class="header-hero">
             <div class="header-art-container">
               <a href="/" class="ascii-art-link" aria-label="Bedroom Dialectics Home">
-                <pre id="asciiHero" class="ascii-art" aria-hidden="true">{asciiArt}</pre>
+                <pre id="asciiHeroDesktop" class="ascii-art ascii-art-desktop" aria-hidden="true">{desktopFrames[0]}</pre>
+                <pre id="asciiHeroMobile" class="ascii-art ascii-art-mobile" aria-hidden="true">{mobileFrames[0]}</pre>
               </a>
             </div>
 
@@ -222,10 +272,11 @@ const asciiArt = asciiFrames[0];
 
       // Living ASCII Art Gesture Animation
       (function initAsciiAnimation() {
-        const heroArt = document.getElementById('asciiHero');
-        if (!heroArt) return;
+        const heroDesktop = document.getElementById('asciiHeroDesktop');
+        const heroMobile = document.getElementById('asciiHeroMobile');
+        if (!heroDesktop && !heroMobile) return;
 
-        const frames = [
+        const dFrames = [
 `+------------------------------------------------------------------+
 |  .     *        .        *      .--.    *        .        *   .  |
 |     *      .        *          (    )       *        .      *    |
@@ -283,14 +334,65 @@ const asciiArt = asciiFrames[0];
 +---------------+------------------------------+-------------------+`
         ];
 
+        const mFrames = [
+`+-------------------------------------+
+|  *     .      .--.      .      *    |
+|     *        (    )        *     .  |
++-------------------------------------+
+|  +-----------------------+   )  )   |
+|  | > thoughts.txt        |  (  (    |
+|  | --------------------- | .------. |
+|  | writing at 2:00 am..._| |      |_|
+|  +-----------------------+ |______|/|
+|     [ open journal ]      [ coffee ]|
++-------------------------------------+`,
+
+`+-------------------------------------+
+|     *        .--.      *        .   |
+|  .     *    (    )        .   *     |
++-------------------------------------+
+|  +-----------------------+  (  (    |
+|  | > thoughts.txt        |   )  )   |
+|  | --------------------- | .------. |
+|  | writing at 2:00 am..._| |      |_|
+|  +-----------------------+ |______|/|
+|     [ open journal ]      [ coffee ]|
++-------------------------------------+`,
+
+`+-------------------------------------+
+|  .     *      .--.        *     .   |
+|     .        (    )    *        .   |
++-------------------------------------+
+|  +-----------------------+   )  (   |
+|  | > thoughts.txt        |  (  )    |
+|  | --------------------- | .------. |
+|  | writing at 2:00 am... | |      |_|
+|  +-----------------------+ |______|/|
+|     [ open journal ]      [ coffee ]|
++-------------------------------------+`,
+
+`+-------------------------------------+
+|     .        .--.    .        *     |
+|  *     .    (    )      *        .  |
++-------------------------------------+
+|  +-----------------------+  (  )    |
+|  | > thoughts.txt        |   )  (   |
+|  | --------------------- | .------. |
+|  | writing at 2:00 am... | |      |_|
+|  +-----------------------+ |______|/|
+|     [ open journal ]      [ coffee ]|
++-------------------------------------+`
+        ];
+
         let fIndex = 0;
         let animTimer = null;
 
         function runLoop(speed) {
           if (animTimer) clearInterval(animTimer);
           animTimer = setInterval(() => {
-            fIndex = (fIndex + 1) % frames.length;
-            heroArt.textContent = frames[fIndex];
+            fIndex = (fIndex + 1) % dFrames.length;
+            if (heroDesktop) heroDesktop.textContent = dFrames[fIndex];
+            if (heroMobile) heroMobile.textContent = mFrames[fIndex];
           }, speed);
         }
 
@@ -298,7 +400,7 @@ const asciiArt = asciiFrames[0];
         runLoop(450);
 
         // Tactile interactive response on hover
-        const artLink = heroArt.closest('.ascii-art-link');
+        const artLink = document.querySelector('.ascii-art-link');
         if (artLink) {
           artLink.addEventListener('mouseenter', () => runLoop(200));
           artLink.addEventListener('mouseleave', () => runLoop(450));
