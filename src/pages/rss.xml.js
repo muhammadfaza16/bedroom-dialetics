@@ -8,7 +8,7 @@ export async function GET(context) {
   );
 
   return rss({
-    title: 'Muhammad Faza — Bedroom Dialectics',
+    title: 'Bedroom Dialectics · Muhammad Faza',
     description: 'Personal notes, engineering reflections, and first-principles observations.',
     site: context.site,
     items: sorted.map((post) => ({

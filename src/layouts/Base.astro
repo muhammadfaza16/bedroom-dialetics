@@ -7,7 +7,7 @@ interface Props {
   showHero?: boolean;
 }
 
-const { title, description = "Bedroom Dialectics — A personal journal by Muhammad Faza on life, quiet tensions, and late-night philosophy.", showHero = false } = Astro.props;
+const { title, description = "Bedroom Dialectics: A personal journal by Muhammad Faza on life, quiet tensions, and late-night philosophy.", showHero = false } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://bedroom-dialectics.vercel.app');
 
 // Normalize pathname to handle trailing slashes seamlessly
@@ -151,7 +151,7 @@ const mobileFrames = [
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <title>{title === 'Bedroom Dialectics' ? 'Bedroom Dialectics — Muhammad Faza' : `${title} — Bedroom Dialectics`}</title>
+    <title>{title === 'Bedroom Dialectics' ? 'Bedroom Dialectics · Muhammad Faza' : `${title} · Bedroom Dialectics`}</title>
 
     <script is:inline>
       const savedTheme = localStorage.getItem('theme');

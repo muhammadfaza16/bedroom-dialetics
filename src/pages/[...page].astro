@@ -16,7 +16,7 @@ interface Props {
 const { page } = Astro.props;
 ---
 
-<Base title={page.currentPage === 1 ? 'Bedroom Dialectics' : `Bedroom Dialectics — Page ${page.currentPage}`} showHero={true}>
+<Base title={page.currentPage === 1 ? 'Bedroom Dialectics' : `Bedroom Dialectics · Page ${page.currentPage}`} showHero={true}>
   <div class="essay-stream">
     {page.data.length === 0 ? (
       <p style="text-align: center; color: var(--text-faint);">No essays published yet.</p>
