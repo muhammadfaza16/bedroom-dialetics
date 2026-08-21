@@ -2,10 +2,13 @@
 import Base from '../layouts/Base.astro';
 ---
 
-<Base
-  title="About"
-  description="About Bedroom Dialectics — a personal space by Muhammad Faza."
->
+<Base title="About">
+  <nav class="breadcrumbs" aria-label="Breadcrumbs">
+    <a href="/">Home</a>
+    <span class="arrow">▸</span>
+    <span class="current">About</span>
+  </nav>
+
   <div class="about-page">
     <h1>About</h1>
 

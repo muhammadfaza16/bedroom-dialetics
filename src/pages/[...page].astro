@@ -1,0 +1,92 @@
+---
+import type { GetStaticPaths, Page } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const allPosts = await getCollection('posts');
+  const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  return paginate(posts, { pageSize: 4 });
+}) satisfies GetStaticPaths;
+
+interface Props {
+  page: Page<CollectionEntry<'posts'>>;
+}
+
+const { page } = Astro.props;
+---
+
+<Base title={page.currentPage === 1 ? 'Bedroom Dialectics' : `Bedroom Dialectics — Page ${page.currentPage}`} showHero={true}>
+  <div class="essay-stream">
+    {page.data.length === 0 ? (
+      <p style="text-align: center; color: var(--text-faint);">No essays published yet.</p>
+    ) : (
+      page.data.map((post) => {
+        const formattedDate = post.data.date.toLocaleDateString('en-US', {
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric',
+        });
+        const wordCount = post.body?.split(/\s+/).filter(Boolean).length ?? 0;
+        const readTime = Math.max(1, Math.ceil(wordCount / 200));
+
+        return (
+          <article class="stream-entry">
+            <div class="stream-meta">
+              <time datetime={post.data.date.toISOString()}>{formattedDate}</time>
+              <span class="meta-sep">/</span>
+              <span>Read time: {readTime} min</span>
+            </div>
+
+            <h2 class="stream-title">
+              <a href={`/posts/${post.id}`}>{post.data.title}</a>
+            </h2>
+
+            <p class="stream-excerpt">{post.data.excerpt}</p>
+
+            <a href={`/posts/${post.id}`} class="stream-read-link">
+              <span>Read full essay</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-arrow" aria-hidden="true">
+                <path d="M5 12h14"/>
+                <path d="m12 5 7 7-7 7"/>
+              </svg>
+            </a>
+          </article>
+        );
+      })
+    )}
+  </div>
+
+  {page.lastPage > 1 && (
+    <nav class="pagination-nav" aria-label="Pagination">
+      <div class="pagination-slot prev">
+        {page.url.prev && (
+          <a href={page.url.prev} class="pagination-link prev">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-arrow" aria-hidden="true">
+              <path d="m12 19-7-7 7-7"/>
+              <path d="M19 12H5"/>
+            </svg>
+            <span>Newer</span>
+          </a>
+        )}
+      </div>
+
+      <span class="pagination-counter">
+        Page {page.currentPage} of {page.lastPage}
+      </span>
+
+      <div class="pagination-slot next">
+        {page.url.next && (
+          <a href={page.url.next} class="pagination-link next">
+            <span>Older</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-arrow" aria-hidden="true">
+              <path d="M5 12h14"/>
+              <path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
+        )}
+      </div>
+    </nav>
+  )}
+</Base>
