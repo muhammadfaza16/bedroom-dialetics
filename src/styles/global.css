@@ -597,18 +597,18 @@ footer {
    RESPONSIVE
    ========================================================================== */
 @media (max-width: 580px) {
-  html { font-size: 16px; }
+  html { font-size: 14.5px; }
 
   .wrap {
-    padding: 2.25rem 1.25rem 4rem;
+    padding: 2rem 1.2rem 3.5rem;
   }
 
-  .masthead-title { font-size: 1.8rem; }
+  .masthead-title { font-size: 1.7rem; }
 
-  .stream-title { font-size: 1.45rem; }
+  .stream-title { font-size: 1.35rem; }
 
   .read-title {
-    font-size: 2rem;
+    font-size: 1.75rem;
     letter-spacing: -0.02em;
   }
 
