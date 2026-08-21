@@ -126,7 +126,7 @@ a:focus:not(:focus-visible) {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.75rem;
   width: 100%;
   overflow: hidden;
 }
@@ -171,7 +171,7 @@ a:focus:not(:focus-visible) {
 }
 
 .masthead-meta {
-  margin-top: 0.75rem;
+  margin-top: 0;
 }
 
 .masthead-title {
@@ -1138,6 +1138,18 @@ footer {
     padding: 1.75rem 1.15rem 3.5rem;
   }
 
+  .site-header {
+    margin-bottom: 1.75rem;
+  }
+
+  .header-hero {
+    margin-bottom: 1.4rem;
+  }
+
+  .header-art-container {
+    margin-bottom: 0.35rem;
+  }
+
   .ascii-art-desktop {
     display: none;
   }
@@ -1148,7 +1160,10 @@ footer {
     line-height: 10.5px;
   }
 
-  .masthead-title { font-size: 1.45rem; }
+  .masthead-title {
+    font-size: 1.45rem;
+    margin-bottom: 0.2rem;
+  }
 
   .stream-title { font-size: 1.15rem; }
 
