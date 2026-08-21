@@ -121,7 +121,13 @@ const asciiArt = asciiFrames[0];
           <div class="header-hero">
             <div class="header-art-container">
               <a href="/" class="ascii-art-link" aria-label="Bedroom Dialectics Home">
-                <pre id="asciiHero" class="ascii-art" data-frames={JSON.stringify(asciiFrames)} aria-hidden="true">{asciiArt}</pre>
+                <svg class="ascii-art-svg" viewBox="0 0 535 185" aria-hidden="true">
+                  <text id="asciiHeroSvg" font-family="'IBM Plex Mono', 'JetBrains Mono', ui-monospace, Menlo, Monaco, Consolas, monospace" font-size="10.4" fill="var(--accent)" xml:space="preserve">
+                    {asciiArt.split('\n').map((line, idx) => (
+                      <tspan x="0" y={14 + idx * 13.6}>{line}</tspan>
+                    ))}
+                  </text>
+                </svg>
               </a>
             </div>
 
@@ -222,8 +228,8 @@ const asciiArt = asciiFrames[0];
 
       // Living ASCII Art Gesture Animation
       (function initAsciiAnimation() {
-        const heroArt = document.getElementById('asciiHero');
-        if (!heroArt) return;
+        const svgText = document.getElementById('asciiHeroSvg');
+        if (!svgText) return;
 
         const frames = [
 `  ┌──────────────────────────────────────────────────────────────────┐
@@ -286,11 +292,19 @@ const asciiArt = asciiFrames[0];
         let fIndex = 0;
         let animTimer = null;
 
+        function renderFrame(idx) {
+          const lines = frames[idx].split('\n');
+          const tspans = svgText.querySelectorAll('tspan');
+          lines.forEach((line, i) => {
+            if (tspans[i]) tspans[i].textContent = line;
+          });
+        }
+
         function runLoop(speed) {
           if (animTimer) clearInterval(animTimer);
           animTimer = setInterval(() => {
             fIndex = (fIndex + 1) % frames.length;
-            heroArt.textContent = frames[fIndex];
+            renderFrame(fIndex);
           }, speed);
         }
 
@@ -298,7 +312,7 @@ const asciiArt = asciiFrames[0];
         runLoop(450);
 
         // Tactile interactive response on hover
-        const artLink = heroArt.closest('.ascii-art-link');
+        const artLink = svgText.closest('.ascii-art-link');
         if (artLink) {
           artLink.addEventListener('mouseenter', () => runLoop(200));
           artLink.addEventListener('mouseleave', () => runLoop(450));
