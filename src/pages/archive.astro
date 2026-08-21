@@ -1,0 +1,319 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const allPosts = await getCollection('posts');
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+// Map posts with language and topic category metadata
+const idSlugs = new Set([
+  'arsitektur-kamar-yang-berantakan',
+  'arsip-karcis-kereta-dan-revolusi',
+  'dapur-beras-dan-runtuhnya-orde-lama',
+  'diplomasi-segelas-teh-panas',
+  'filsafat-warung-kopi-pukul-dua-pagi',
+  'kutukan-merasa-lebih-pintar-dari-aturan',
+  'mencintai-kemanusiaan-dalam-angan',
+  'menikmati-rasa-tertinggal',
+  'sepak-bola-tarkam-dan-tanah-basah',
+  'kardio-pelat-karbon-dan-validasi',
+]);
+
+const enrichedPosts = sortedPosts.map((post) => {
+  const isId = idSlugs.has(post.id);
+  const lang = isId ? 'id' : 'en';
+  const tagsStr = (post.data.tags || []).join(' ').toLowerCase();
+  
+  // Classify broad topic
+  let topic = 'reflection';
+  if (tagsStr.includes('sejarah') || tagsStr.includes('politik') || tagsStr.includes('history') || tagsStr.includes('politics') || tagsStr.includes('buruh') || tagsStr.includes('diplomasi')) {
+    topic = 'history';
+  } else if (tagsStr.includes('craft') || tagsStr.includes('learning') || tagsStr.includes('cognition') || tagsStr.includes('engineering') || tagsStr.includes('taste') || tagsStr.includes('kreativitas')) {
+    topic = 'craft';
+  } else if (tagsStr.includes('sepakbola') || tagsStr.includes('football') || tagsStr.includes('olahraga') || tagsStr.includes('sport')) {
+    topic = 'sport';
+  }
+
+  return {
+    ...post,
+    lang,
+    topic,
+    searchableText: `${post.data.title} ${post.data.excerpt || ''} ${tagsStr}`.toLowerCase(),
+  };
+});
+
+const idCount = enrichedPosts.filter((p) => p.lang === 'id').length;
+const enCount = enrichedPosts.filter((p) => p.lang === 'en').length;
+
+const monthNames = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+];
+
+interface MonthGroup {
+  monthIndex: number;
+  monthName: string;
+  posts: typeof enrichedPosts;
+}
+
+interface YearGroup {
+  year: string;
+  months: MonthGroup[];
+}
+
+const yearGroups: YearGroup[] = [];
+
+// Populate yearGroups with Month-level hierarchy
+const years = Array.from(
+  new Set(enrichedPosts.map((p) => p.data.date.getFullYear().toString()))
+).sort((a, b) => Number(b) - Number(a));
+
+years.forEach((year) => {
+  const postsInYear = enrichedPosts.filter(
+    (p) => p.data.date.getFullYear().toString() === year
+  );
+  const monthMap = new Map<number, typeof enrichedPosts>();
+
+  postsInYear.forEach((post) => {
+    const m = post.data.date.getMonth();
+    if (!monthMap.has(m)) monthMap.set(m, []);
+    monthMap.get(m)!.push(post);
+  });
+
+  const sortedMonths = Array.from(monthMap.keys()).sort((a, b) => b - a);
+  const months: MonthGroup[] = sortedMonths.map((m) => ({
+    monthIndex: m,
+    monthName: monthNames[m],
+    posts: monthMap.get(m)!,
+  }));
+
+  yearGroups.push({ year, months });
+});
+
+function formatDay(date: Date) {
+  const day = date.getDate();
+  return day < 10 ? `0${day}` : `${day}`;
+}
+---
+
+<Base title="Archive">
+  <nav class="breadcrumbs" aria-label="Breadcrumbs">
+    <a href="/">Home</a>
+    <span class="arrow">▸</span>
+    <span class="current">Archive</span>
+  </nav>
+
+  <div class="archive-page">
+    <h1>Archive</h1>
+    <div id="archiveCounter" class="archive-lead">Showing all {sortedPosts.length} essays</div>
+
+    <!-- Search & Filter Controls -->
+    <div class="archive-controls">
+      <div class="archive-search-box">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+        <input type="text" id="archiveSearch" class="archive-search-input" placeholder="Search essays or keywords..." aria-label="Search essays" />
+        <button id="clearSearchBtn" class="clear-search-btn" type="button" aria-label="Clear search" style="display: none;">&times;</button>
+      </div>
+
+      <div class="archive-filters" role="group" aria-label="Filter essays">
+        <span class="filter-label">Topics:</span>
+        <button type="button" class="filter-item active" data-filter="all">All <span class="filter-count">({sortedPosts.length})</span></button>
+        <span class="filter-sep" aria-hidden="true">/</span>
+        <button type="button" class="filter-item" data-filter="lang:id">Bahasa Indonesia <span class="filter-count">({idCount})</span></button>
+        <span class="filter-sep" aria-hidden="true">/</span>
+        <button type="button" class="filter-item" data-filter="lang:en">English <span class="filter-count">({enCount})</span></button>
+        <span class="filter-sep" aria-hidden="true">/</span>
+        <button type="button" class="filter-item" data-filter="topic:history">History & Politics</button>
+        <span class="filter-sep" aria-hidden="true">/</span>
+        <button type="button" class="filter-item" data-filter="topic:craft">Craft & Cognition</button>
+        <span class="filter-sep" aria-hidden="true">/</span>
+        <button type="button" class="filter-item" data-filter="topic:sport">Sports & Culture</button>
+        <span class="filter-sep" aria-hidden="true">/</span>
+        <button type="button" class="filter-item" data-filter="topic:reflection">Solitude & Reflection</button>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div id="archiveEmptyState" class="archive-empty-state" style="display: none;">
+      <p>No essays match your current filter or search query.</p>
+      <button id="resetFilterBtn" type="button" class="reset-filter-link">Reset all filters</button>
+    </div>
+
+    <!-- Archive Entries Organized by Year -> Month -->
+    <div id="archiveEntries">
+      {yearGroups.map((group) => (
+        <section class="archive-year-section" data-year-section={group.year}>
+          <h2 class="archive-year-heading">{group.year}</h2>
+
+          {group.months.map((m) => (
+            <div class="archive-month-group" data-month-group={`${group.year}-${m.monthIndex}`}>
+              <h3 class="archive-month-heading">
+                <span class="month-icon" aria-hidden="true">▸</span>
+                <span>{m.monthName}</span>
+                <span class="archive-month-count" data-initial-count={m.posts.length}>({m.posts.length})</span>
+              </h3>
+
+              <ul class="archive-list">
+                {m.posts.map((post) => (
+                  <li 
+                    class="archive-item" 
+                    data-lang={post.lang}
+                    data-topic={post.topic}
+                    data-search={post.searchableText}
+                  >
+                    <time class="archive-day" datetime={post.data.date.toISOString()}>
+                      {formatDay(post.data.date)}
+                    </time>
+                    <a href={`/posts/${post.id}`} class="archive-title">
+                      {post.data.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </section>
+      ))}
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const searchInput = document.getElementById('archiveSearch');
+      const clearBtn = document.getElementById('clearSearchBtn');
+      const filterItems = document.querySelectorAll('.filter-item');
+      const items = document.querySelectorAll('.archive-item');
+      const monthGroups = document.querySelectorAll('[data-month-group]');
+      const yearSections = document.querySelectorAll('[data-year-section]');
+      const counterEl = document.getElementById('archiveCounter');
+      const emptyStateEl = document.getElementById('archiveEmptyState');
+      const resetBtn = document.getElementById('resetFilterBtn');
+
+      let currentFilter = 'all';
+      let currentQuery = '';
+
+      function updateDisplay() {
+        let visibleCount = 0;
+
+        // 1. Filter individual essay items
+        items.forEach((item) => {
+          const itemLang = item.getAttribute('data-lang');
+          const itemTopic = item.getAttribute('data-topic');
+          const itemSearch = item.getAttribute('data-search') || '';
+
+          let matchesFilter = true;
+          if (currentFilter.startsWith('lang:')) {
+            const targetLang = currentFilter.split(':')[1];
+            matchesFilter = itemLang === targetLang;
+          } else if (currentFilter.startsWith('topic:')) {
+            const targetTopic = currentFilter.split(':')[1];
+            matchesFilter = itemTopic === targetTopic;
+          }
+
+          let matchesSearch = true;
+          if (currentQuery.trim() !== '') {
+            matchesSearch = itemSearch.includes(currentQuery.toLowerCase().trim());
+          }
+
+          if (matchesFilter && matchesSearch) {
+            item.style.display = 'grid';
+            visibleCount++;
+          } else {
+            item.style.display = 'none';
+          }
+        });
+
+        // 2. Update Month Groups (hide if empty, update count badge)
+        monthGroups.forEach((mGroup) => {
+          let visibleInMonth = 0;
+          mGroup.querySelectorAll('.archive-item').forEach((it) => {
+            if (it.style.display !== 'none') visibleInMonth++;
+          });
+
+          if (visibleInMonth > 0) {
+            mGroup.style.display = 'block';
+            const countBadge = mGroup.querySelector('.archive-month-count');
+            if (countBadge) countBadge.textContent = `(${visibleInMonth})`;
+          } else {
+            mGroup.style.display = 'none';
+          }
+        });
+
+        // 3. Update Year Sections (hide if all month groups are hidden)
+        yearSections.forEach((section) => {
+          let hasVisibleMonth = false;
+          section.querySelectorAll('.archive-month-group').forEach((mg) => {
+            if (mg.style.display !== 'none') hasVisibleMonth = true;
+          });
+          section.style.display = hasVisibleMonth ? 'block' : 'none';
+        });
+
+        // 4. Update counter & empty state
+        if (visibleCount === 0) {
+          if (emptyStateEl) emptyStateEl.style.display = 'block';
+          if (counterEl) counterEl.textContent = 'No essays found';
+        } else {
+          if (emptyStateEl) emptyStateEl.style.display = 'none';
+          if (counterEl) {
+            if (currentFilter === 'all' && !currentQuery.trim()) {
+              counterEl.textContent = `Showing all ${visibleCount} essays`;
+            } else {
+              counterEl.textContent = `Showing ${visibleCount} of ${items.length} essays`;
+            }
+          }
+        }
+
+        // Toggle clear search button
+        if (clearBtn) {
+          clearBtn.style.display = currentQuery.trim() ? 'inline-flex' : 'none';
+        }
+      }
+
+      // Filter item click handler
+      filterItems.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          filterItems.forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFilter = btn.getAttribute('data-filter') || 'all';
+          updateDisplay();
+        });
+      });
+
+      // Search input handler
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          currentQuery = e.target.value;
+          updateDisplay();
+        });
+      }
+
+      // Clear search button
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          if (searchInput) searchInput.value = '';
+          currentQuery = '';
+          updateDisplay();
+          if (searchInput) searchInput.focus();
+        });
+      }
+
+      // Reset filter button in empty state
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (searchInput) searchInput.value = '';
+          currentQuery = '';
+          currentFilter = 'all';
+          filterItems.forEach((b) => b.classList.remove('active'));
+          const allBtn = document.querySelector('.filter-item[data-filter="all"]');
+          if (allBtn) allBtn.classList.add('active');
+          updateDisplay();
+        });
+      }
+    })();
+  </script>
+</Base>

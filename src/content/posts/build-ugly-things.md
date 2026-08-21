@@ -1,6 +1,6 @@
 ---
 title: "Give Yourself Permission to Build Ugly Things"
-date: 2026-05-19
+date: 2026-05-18
 excerpt: "Polished projects only come from a graveyard of embarrassing prototypes. If you can't tolerate looking foolish, you can't learn anything hard."
 tags: ["engineering", "creation", "perfectionism"]
 ---
@@ -9,7 +9,7 @@ The most common trap for beginners and seasoned creators alike is the myth of th
 
 You see a stunning software product, an impeccably written book, or a breathtaking architecture, and your brain retroactively projects that elegance all the way back to Day 1. You imagine the creator sat down and poured divine geometry straight from their fingertips onto the canvas.
 
-They didn't. They built a Frankenstein monster first.
+In reality, they almost always started with an awkward, embarrassing prototype.
 
 ## The Secret Graveyard
 
@@ -29,6 +29,4 @@ There is tremendous competitive advantage in being willing to look foolish in pr
 - Write the paragraph with the repetitive words.
 - Run the script that only works on your local machine.
 
-Function precedes form. Insight precedes elegance. 
-
-You cannot polish a blank page, and you cannot refactor code that doesn't exist. Build it ugly, get it running, and make it beautiful later.
+Working prototypes teach you what the project actually needs. You cannot polish a blank page, and you cannot refactor nonexistent code. Get the rough version working first, and refine the edges once the mechanics hold up.

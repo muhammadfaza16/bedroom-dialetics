@@ -12,12 +12,9 @@
   --border:       #e2e2e2;
   --border-strong:#c0c0c0;
   --accent:       #cd241f;
-  --accent-dim:   rgba(205, 36, 31, 0.08);
   --selection:    #e8e2d8;
 
   --font-mono: "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
-  --font-serif: "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, Monaco, monospace;
-  --font-sans:  "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, Monaco, monospace;
 
   --max-w: 640px;
 }
@@ -32,7 +29,6 @@
   --border:       #282828;
   --border-strong:#3a3a3a;
   --accent:       #ffb650;
-  --accent-dim:   rgba(255, 182, 80, 0.12);
   --selection:    #33281c;
 }
 
@@ -47,7 +43,6 @@
     --border:       #282828;
     --border-strong:#363636;
     --accent:       #ffb650;
-    --accent-dim:   rgba(255, 182, 80, 0.12);
     --selection:    #33281c;
   }
 }
@@ -110,9 +105,13 @@ body {
   border-radius: 2px;
 }
 
-/* ==========================================================================
-   UNIVERSAL SITE NAV HEADER
-   ========================================================================== */
+:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 /* ==========================================================================
    SITE HEADER & HERO (ART + MASTHEAD + NAV)
    ========================================================================== */
@@ -138,9 +137,11 @@ body {
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
 }
 
-.ascii-art-link:hover {
-  transform: scale(1.02);
-  opacity: 0.9;
+@media (hover: hover) {
+  .ascii-art-link:hover {
+    transform: scale(1.02);
+    opacity: 0.9;
+  }
 }
 
 .ascii-art {
@@ -170,8 +171,10 @@ body {
   transition: color 0.15s ease;
 }
 
-.masthead-title:hover {
-  color: var(--accent);
+@media (hover: hover) {
+  .masthead-title:hover {
+    color: var(--accent);
+  }
 }
 
 .masthead-tagline {
@@ -187,7 +190,7 @@ body {
   justify-content: space-between;
   font-family: var(--font-mono);
   font-size: 0.88rem;
-  padding-bottom: 0.25rem;
+  padding-bottom: 0;
 }
 
 .nav-links {
@@ -203,10 +206,12 @@ body {
   transition: color 0.15s ease;
 }
 
-.nav-links a:hover {
-  color: var(--text);
-  text-decoration: underline;
-  text-decoration-thickness: 1.5px;
+@media (hover: hover) {
+  .nav-links a:hover {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+  }
 }
 
 .nav-links a[aria-current="page"] {
@@ -219,16 +224,31 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0.2rem;
-  display: flex;
+  padding: 0.35rem;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
-  transition: transform 0.2s ease;
+  border-radius: 50%;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.theme-split-btn:hover {
-  transform: rotate(15deg) scale(1.12);
+@media (hover: hover) {
+  .theme-split-btn:hover {
+    transform: rotate(15deg) scale(1.12);
+  }
+}
+
+.theme-split-btn:active {
+  transform: scale(0.9);
+}
+
+.theme-split-btn:focus,
+.theme-split-btn:focus-visible {
+  outline: none;
 }
 
 .theme-split-circle {
@@ -255,7 +275,7 @@ body {
 .header-divider {
   height: 1px;
   background-color: var(--border);
-  margin-top: 1rem;
+  margin-top: 0.45rem;
   width: 100%;
 }
 
@@ -279,10 +299,12 @@ body {
   transition: color 0.15s ease;
 }
 
-.breadcrumbs a:hover {
-  color: var(--accent);
-  text-decoration: underline;
-  text-decoration-thickness: 1.5px;
+@media (hover: hover) {
+  .breadcrumbs a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+  }
 }
 
 .breadcrumbs .arrow {
@@ -352,10 +374,12 @@ body {
   transition: color 0.15s ease;
 }
 
-.stream-title a:hover {
-  color: var(--accent);
-  text-decoration: underline;
-  text-decoration-thickness: 1.5px;
+@media (hover: hover) {
+  .stream-title a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+  }
 }
 
 .stream-excerpt {
@@ -379,11 +403,13 @@ body {
   align-self: flex-start;
 }
 
-.stream-read-link:hover {
-  opacity: 0.85;
-  gap: 0.5rem;
-  text-decoration: underline;
-  text-decoration-thickness: 1.5px;
+@media (hover: hover) {
+  .stream-read-link:hover {
+    opacity: 0.85;
+    gap: 0.5rem;
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+  }
 }
 
 /* ==========================================================================
@@ -420,18 +446,20 @@ body {
   transition: opacity 0.15s ease;
 }
 
-.pagination-link:hover {
-  opacity: 0.8;
-  text-decoration: underline;
-  text-decoration-thickness: 1.5px;
-}
+@media (hover: hover) {
+  .pagination-link:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+  }
 
-.pagination-link.prev:hover .inline-arrow {
-  transform: translate(-3px, 1px);
-}
+  .pagination-link.prev:hover .inline-arrow {
+    transform: translate(-3px, 1px);
+  }
 
-.pagination-link.next:hover .inline-arrow {
-  transform: translate(3px, 1px);
+  .pagination-link.next:hover .inline-arrow {
+    transform: translate(3px, 1px);
+  }
 }
 
 .pagination-counter {
@@ -553,8 +581,10 @@ body {
   transition: opacity 0.15s ease;
 }
 
-.prose a:hover {
-  opacity: 0.8;
+@media (hover: hover) {
+  .prose a:hover {
+    opacity: 0.8;
+  }
 }
 
 .prose code {
@@ -646,12 +676,14 @@ body {
   transition: color 0.15s ease;
 }
 
-.prev-link:hover .nav-label .inline-arrow {
-  transform: translate(-3px, 1px);
-}
+@media (hover: hover) {
+  .prev-link:hover .nav-label .inline-arrow {
+    transform: translate(-3px, 1px);
+  }
 
-.next-link:hover .nav-label .inline-arrow {
-  transform: translate(3px, 1px);
+  .next-link:hover .nav-label .inline-arrow {
+    transform: translate(3px, 1px);
+  }
 }
 
 .nav-title {
@@ -663,9 +695,11 @@ body {
   transition: color 0.15s ease;
 }
 
-.nav-link:hover .nav-label,
-.nav-link:hover .nav-title {
-  color: var(--accent);
+@media (hover: hover) {
+  .nav-link:hover .nav-label,
+  .nav-link:hover .nav-title {
+    color: var(--accent);
+  }
 }
 
 .post-bottom-actions {
@@ -675,7 +709,7 @@ body {
   font-family: var(--font-mono);
   font-size: 0.78rem;
   font-weight: 500;
-  padding-top: 1rem;
+  padding-top: 1.25rem;
 }
 
 .post-bottom-actions a,
@@ -691,20 +725,37 @@ body {
   font-family: inherit;
   font-size: inherit;
   line-height: 1;
+  padding: 0.4rem 0.2rem;
   transition: color 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.post-bottom-actions a:hover,
-.post-bottom-actions button:hover {
-  color: var(--accent);
+@media (hover: hover) {
+  .post-bottom-actions a:hover,
+  .post-bottom-actions button:hover {
+    color: var(--accent);
+  }
+
+  .back-link-bottom:hover .inline-arrow {
+    transform: translate(-3px, 1px);
+  }
+
+  .scroll-top-btn:hover .inline-arrow {
+    transform: translateY(-1px);
+  }
 }
 
-.back-link-bottom:hover .inline-arrow {
-  transform: translate(-3px, 1px);
+.post-bottom-actions a:active,
+.post-bottom-actions button:active {
+  opacity: 0.7;
 }
 
-.scroll-top-btn:hover .inline-arrow {
-  transform: translateY(-1px);
+.post-bottom-actions button:focus,
+.post-bottom-actions button:focus-visible,
+.post-bottom-actions a:focus,
+.post-bottom-actions a:focus-visible {
+  outline: none;
 }
 
 /* ==========================================================================
@@ -718,11 +769,32 @@ body {
   letter-spacing: -0.015em;
 }
 
+.about-page h2 {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 2.2em 0 0.75em;
+  color: var(--text);
+  line-height: 1.35;
+}
+
 .about-page p {
   font-family: var(--font-mono);
   font-size: 1rem;
   line-height: 1.72;
   margin-bottom: 1.45em;
+  color: var(--text);
+}
+
+.about-page ul {
+  padding-left: 1.25rem;
+  margin-bottom: 1.45em;
+}
+
+.about-page li {
+  margin-bottom: 0.5em;
+  line-height: 1.65;
   color: var(--text);
 }
 
@@ -743,21 +815,309 @@ body {
   transition: opacity 0.15s ease;
 }
 
-.about-page a:hover {
-  opacity: 0.8;
+@media (hover: hover) {
+  .about-page a:hover {
+    opacity: 0.8;
+  }
+}
+
+/* ==========================================================================
+   ARCHIVE PAGE
+   ========================================================================== */
+.archive-page h1 {
+  font-family: var(--font-mono);
+  font-size: 1.85rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+  letter-spacing: -0.015em;
+}
+
+.archive-lead {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-faint);
+  margin-bottom: 1.5rem;
+}
+
+/* Archive Search & Filters */
+.archive-controls {
+  margin-bottom: 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.archive-search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.45rem 0.8rem;
+  transition: border-color 0.15s ease;
+}
+
+.archive-search-box:focus-within {
+  border-color: var(--accent);
+}
+
+.archive-search-box .search-icon {
+  color: var(--text-faint);
+  flex-shrink: 0;
+}
+
+.archive-search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: var(--text);
+  width: 100%;
+}
+
+.archive-search-input::placeholder {
+  color: var(--text-faint);
+}
+
+.clear-search-btn {
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0 0.2rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+}
+
+.clear-search-btn:hover {
+  color: var(--text);
+}
+
+.archive-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.filter-label {
+  color: var(--text-faint);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 0.2rem;
+  user-select: none;
+}
+
+.filter-sep {
+  color: var(--text-faint);
+  opacity: 0.35;
+  font-size: 0.75rem;
+  user-select: none;
+}
+
+.filter-item {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 400;
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  transition: color 0.15s ease;
+  line-height: 1.3;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.filter-item .filter-count {
+  font-size: 0.74rem;
+  color: var(--text-faint);
+  opacity: 0.75;
+}
+
+@media (hover: hover) {
+  .filter-item:hover {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+  }
+}
+
+.filter-item.active {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+.filter-item.active .filter-count {
+  color: var(--accent);
+  opacity: 0.85;
+}
+
+.archive-empty-state {
+  padding: 3rem 0;
+  text-align: center;
+  font-family: var(--font-mono);
+  color: var(--text-faint);
+  font-size: 0.9rem;
+}
+
+.archive-empty-state .reset-filter-link {
+  color: var(--accent);
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  display: inline-block;
+}
+
+.archive-year-section {
+  margin-bottom: 3.5rem;
+}
+
+.archive-year-heading {
+  font-family: var(--font-mono);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dashed var(--border-strong);
+}
+
+.archive-month-group {
+  margin-bottom: 2rem;
+  padding-left: 0.25rem;
+}
+
+.archive-month-heading {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.archive-month-heading .month-icon {
+  font-size: 0.75rem;
+  color: var(--accent);
+  opacity: 0.85;
+}
+
+.archive-month-count {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-faint);
+}
+
+.archive-list {
+  list-style: none;
+  padding: 0 0 0 1.15rem;
+  margin: 0 0 0 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  border-left: 1px dotted var(--border);
+}
+
+.archive-item {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  align-items: baseline;
+  gap: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.archive-day {
+  color: var(--text-faint);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.archive-title {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+@media (hover: hover) {
+  .archive-item:hover .archive-day {
+    color: var(--accent);
+  }
+
+  .archive-item:hover .archive-title {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+  }
+}
+
+@media (max-width: 580px) {
+  .archive-month-group {
+    padding-left: 0;
+  }
+  .archive-list {
+    margin-left: 0.15rem;
+    padding-left: 0.75rem;
+  }
+  .archive-item {
+    grid-template-columns: 1.85rem 1fr;
+    gap: 0.65rem;
+    font-size: 0.88rem;
+  }
+  .archive-day {
+    font-size: 0.78rem;
+  }
 }
 
 /* ==========================================================================
    FOOTER
    ========================================================================== */
 footer {
-  margin-top: auto;
-  padding-top: 3rem;
+  margin-top: 4.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
   border-top: 1px solid var(--border);
   text-align: center;
   font-family: var(--font-mono);
   font-size: 0.78rem;
   color: var(--text-faint);
+}
+
+.footer-rss-link {
+  color: var(--text-faint);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s ease;
+}
+
+@media (hover: hover) {
+  .footer-rss-link:hover {
+    color: var(--accent);
+  }
 }
 
 /* ==========================================================================

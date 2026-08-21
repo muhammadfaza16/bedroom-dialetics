@@ -20,3 +20,19 @@ Consult these guides before working on related tasks:
 - [Adding or managing content](https://docs.astro.build/en/guides/content-collections/)
 - [Adding styles or using Tailwind](https://docs.astro.build/en/guides/styling/)
 - [Supporting multiple languages](https://docs.astro.build/en/guides/internationalization/)
+
+## Writing & Content Guidelines
+
+All articles and essays in *Bedroom Dialectics* must follow the **No AI Slop** editorial standard (`.agents/skills/no-ai-slop/SKILL.md`):
+- Avoid AI cliches and generic templates (*"It's not X, it's Y"*, *"In today's fast-paced world"*, *"The future is already here"*).
+- Ground arguments in concrete mechanisms, sensory details, and specific lived observations.
+- Preserve authentic human voice, cadence, honest uncertainty, and personal reflections.
+- Pure prose essays without code blocks or unnecessary artificial diagrams.
+
+## Shorthand Commands
+
+Recognize and execute these shorthands immediately whenever entered by the user:
+
+- **`/unslop [text|file]`** or **`unslop [text|file]`**: Edit and clean the draft from AI slop, returning the polished prose + brief "What Changed" breakdown.
+- **`/check-slop [text|file]`** or **`cek slop [text|file]`** or **`slop? [text|file]`**: Audit mode — scan and list all detected AI slop patterns with quotes and brief fixes without rewriting.
+- **`/draft [topic]`** or **`tulis [topic]`**: Generate a new essay for *Bedroom Dialectics* strictly following the No AI Slop guidelines.

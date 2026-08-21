@@ -1,6 +1,6 @@
 ---
 title: "The Curse of Having Taste Before Having Skill"
-date: 2026-07-29
+date: 2026-07-19
 excerpt: "Why your early creations feel disappointing, and why that quiet dissatisfaction is the only proof that you actually know what good looks like."
 tags: ["craft", "taste", "creation"]
 ---
@@ -17,24 +17,18 @@ Most people quit here. They conclude that because their initial output is medioc
 
 ## The Gap
 
-What is actually happening is much more interesting:
-
-Your **taste**—your ability to recognize quality, elegance, and nuance—develops years before your **execution** catches up.
+That painful dissonance occurs because critical taste develops years before mechanical execution:
 
 - Your taste is what drew you to the medium in the first place.
 - Your taste is what makes you ambitious.
-- But your taste is also the exact judge that makes you hate your own beginner work.
+- But your taste is also the exact standard that makes you dissatisfied with your early attempts.
 
-If you had bad taste, you would write something mediocre and feel thrilled with yourself. You would post it everywhere, completely blind to its flaws. 
-
-The fact that you hate your work is actually good news: it means your radar works. Your standards are higher than your current motor skills.
+If you lacked taste, you would produce something mediocre and feel thrilled with it, posting it everywhere while blind to its rough edges. Disliking your early work is evidence that your perceptual radar is functioning well ahead of your motor skill.
 
 ## The Only Way Across
 
-The only antidote to this tension is volume without judgment.
+The remedy for this tension is volume without premature judgment.
 
-You have to make peace with producing things that are beneath your own standards for a while. You have to write twenty mediocre essays to get to one that feels honest. You have to build twelve clunky interfaces to understand why the thirteenth works.
+You have to accept producing work that sits below your own standards for a while. You might need twenty clumsy essays to arrive at one that feels honest, or twelve awkward interfaces to understand why the thirteenth functions cleanly.
 
-The goal in the beginning isn't to make something brilliant. 
-
-The goal is simply to close the gap between your eye and your hand, one embarrassing draft at a time.
+Early on, the task is simply to narrow the distance between what you can perceive and what you can build, one draft at a time.
