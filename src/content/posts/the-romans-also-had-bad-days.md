@@ -1,5 +1,5 @@
 ---
-title: "The Romans Also Had Bad Days"
+title: "History Without the Soundtrack"
 date: 2026-03-14
 excerpt: "History books compress centuries into dramatic turning points, blinding us to the reality that human life has always been lived in the messy, unheroic present."
 tags: ["history", "perspective", "philosophy"]

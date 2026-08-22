@@ -1,5 +1,5 @@
 ---
-title: "Kardio, Pelat Karbon, dan Validasi Minggu Pagi"
+title: "Sepatu Tiga Juta dan Semangkuk Lontong Sayur"
 date: 2026-08-21
 excerpt: "Bagaimana kegiatan paling purba dalam sejarah manusia, yaitu mengayunkan kaki di atas tanah, berhasil disulap menjadi ajang pamer metrik fisiologis dan peragaan busana sintetis termahal di kota."
 tags: ["olahraga", "satire", "gaya-hidup", "kota"]

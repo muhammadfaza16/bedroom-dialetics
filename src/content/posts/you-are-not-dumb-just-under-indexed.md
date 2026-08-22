@@ -1,5 +1,5 @@
 ---
-title: "The Silent Scaffolding of Hard Things"
+title: "Missing the Bottom Rung"
 date: 2026-01-22
 excerpt: "Why struggling with complex technical subjects is rarely a lack of raw intellect, and how unstated foundational steps create the illusion of personal inadequacy."
 tags: ["learning", "cognition", "craft"]

@@ -1,5 +1,5 @@
 ---
-title: "The Gap Between Taste and Skill"
+title: "When Your Taste Hates Your Hands"
 date: 2026-07-19
 excerpt: "Why your early creations feel disappointing, and why that quiet dissatisfaction is the only proof that you actually know what good looks like."
 tags: ["craft", "taste", "creation"]

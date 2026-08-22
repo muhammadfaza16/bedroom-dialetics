@@ -1,5 +1,5 @@
 ---
-title: "An Ode to Undersea Cables"
+title: "The Garden Hose Holding Up the Cloud"
 date: 2026-01-08
 excerpt: "We worship founders and disruptors who build apps in the cloud, but modern civilization is actually held together by tired engineers fixing glass fibers at the bottom of the ocean."
 tags: ["technology", "history", "infrastructure"]

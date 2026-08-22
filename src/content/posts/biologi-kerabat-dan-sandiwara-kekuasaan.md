@@ -1,5 +1,5 @@
 ---
-title: "Biologi Kerabat dan Sandiwara Kekuasaan"
+title: "Hukum Rimba di Balik Jas Safari"
 date: 2026-08-22
 excerpt: "Mengapa akrobat hukum dan politik dinasti di ibu kota terasa begitu akrab dengan naluri purba kepala suku dalam mempertahankan rimba kekuasaannya."
 tags: ["evolusi", "politik", "antropologi", "kekuasaan"]

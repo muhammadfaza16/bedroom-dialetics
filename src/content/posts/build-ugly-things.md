@@ -1,5 +1,5 @@
 ---
-title: "The Necessity of Ugly Prototypes"
+title: "The Embarrassment of Day One"
 date: 2026-05-18
 excerpt: "Polished projects only come from a graveyard of embarrassing prototypes. If you can't tolerate looking foolish, you can't learn anything hard."
 tags: ["engineering", "creation", "perfectionism"]

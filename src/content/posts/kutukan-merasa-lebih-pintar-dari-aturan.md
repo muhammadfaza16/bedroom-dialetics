@@ -1,5 +1,5 @@
 ---
-title: "Kutukan Merasa Lebih Pintar dari Aturan"
+title: "Demam Orang yang Merasa Terlalu Pintar"
 date: 2026-07-28
 excerpt: "Tentang godaan berbahaya untuk meyakini bahwa bakat dan visi besar memberi kita izin untuk menginjak etika dasar, serta keterasingan sunyi yang lahir setelahnya."
 tags: ["psikologi", "etika", "ambisi", "refleksi"]
