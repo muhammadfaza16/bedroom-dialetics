@@ -23,11 +23,13 @@ Consult these guides before working on related tasks:
 
 ## Writing & Content Guidelines
 
-All articles and essays in *Bedroom Dialectics* must follow the **No AI Slop** editorial standard (`.agents/skills/no-ai-slop/SKILL.md`):
+All articles and essays in *Bedroom Dialectics* must follow the **No AI Slop** editorial standard (`.agents/skills/no-ai-slop/SKILL.md`) and the **Bedroom Dialectics Essay Craft** framework (`.agents/skills/bedroom-dialectics/SKILL.md`):
 - Avoid AI cliches and generic templates (*"It's not X, it's Y"*, *"In today's fast-paced world"*, *"The future is already here"*).
 - Ground arguments in concrete mechanisms, sensory details, and specific lived observations.
 - Preserve authentic human voice, cadence, honest uncertainty, and personal reflections.
+- Apply the 3-step dialectic (Thesis -> Antithesis -> Synthesis) and street-to-theory conceptual leaps.
 - Pure prose essays without code blocks or unnecessary artificial diagrams.
+- Punctuation rules: Zero em-dash (`—`), zero colon (`:`) in body prose, zero semicolon (`;`).
 
 ## Shorthand Commands
 
@@ -35,4 +37,4 @@ Recognize and execute these shorthands immediately whenever entered by the user:
 
 - **`/unslop [text|file]`** or **`unslop [text|file]`**: Edit and clean the draft from AI slop, returning the polished prose + brief "What Changed" breakdown.
 - **`/check-slop [text|file]`** or **`cek slop [text|file]`** or **`slop? [text|file]`**: Audit mode — scan and list all detected AI slop patterns with quotes and brief fixes without rewriting.
-- **`/draft [topic]`** or **`tulis [topic]`**: Generate a new essay for *Bedroom Dialectics* strictly following the No AI Slop guidelines.
+- **`/draft [topic]`** or **`tulis [topic]`** or **`/essay [topic]`**: Generate a new essay for *Bedroom Dialectics* strictly following the No AI Slop and Bedroom Dialectics dialectical guidelines.
