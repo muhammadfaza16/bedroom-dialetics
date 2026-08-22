@@ -40,7 +40,6 @@ const enrichedPosts = sortedPosts.map((post) => {
     ...post,
     lang,
     topic,
-    searchableText: `${post.data.title} ${post.data.excerpt || ''} ${tagsStr}`.toLowerCase(),
   };
 });
 
@@ -109,38 +108,27 @@ function formatDay(date: Date) {
     <h1>Archive</h1>
     <div id="archiveCounter" class="archive-lead">Showing all {sortedPosts.length} essays</div>
 
-    <!-- Search & Filter Controls -->
-    <div class="archive-controls">
-      <div class="archive-search-box">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon" aria-hidden="true">
-          <circle cx="11" cy="11" r="8"/>
-          <path d="m21 21-4.3-4.3"/>
-        </svg>
-        <input type="text" id="archiveSearch" class="archive-search-input" placeholder="Search essays or keywords..." aria-label="Search essays" />
-        <button id="clearSearchBtn" class="clear-search-btn" type="button" aria-label="Clear search" style="display: none;">&times;</button>
-      </div>
-
-      <div class="archive-filters" role="group" aria-label="Filter essays">
-        <span class="filter-label">Topics:</span>
-        <button type="button" class="filter-item active" data-filter="all">All <span class="filter-count">({sortedPosts.length})</span></button>
-        <span class="filter-sep" aria-hidden="true">/</span>
-        <button type="button" class="filter-item" data-filter="lang:id">Bahasa Indonesia <span class="filter-count">({idCount})</span></button>
-        <span class="filter-sep" aria-hidden="true">/</span>
-        <button type="button" class="filter-item" data-filter="lang:en">English <span class="filter-count">({enCount})</span></button>
-        <span class="filter-sep" aria-hidden="true">/</span>
-        <button type="button" class="filter-item" data-filter="topic:history">History & Politics</button>
-        <span class="filter-sep" aria-hidden="true">/</span>
-        <button type="button" class="filter-item" data-filter="topic:craft">Craft & Cognition</button>
-        <span class="filter-sep" aria-hidden="true">/</span>
-        <button type="button" class="filter-item" data-filter="topic:sport">Sports & Culture</button>
-        <span class="filter-sep" aria-hidden="true">/</span>
-        <button type="button" class="filter-item" data-filter="topic:reflection">Solitude & Reflection</button>
-      </div>
+    <!-- Topic & Language Filters -->
+    <div class="archive-filters" role="group" aria-label="Filter essays">
+      <span class="filter-label">Topics:</span>
+      <button type="button" class="filter-item active" data-filter="all">All <span class="filter-count">({sortedPosts.length})</span></button>
+      <span class="filter-sep" aria-hidden="true">/</span>
+      <button type="button" class="filter-item" data-filter="lang:id">Bahasa Indonesia <span class="filter-count">({idCount})</span></button>
+      <span class="filter-sep" aria-hidden="true">/</span>
+      <button type="button" class="filter-item" data-filter="lang:en">English <span class="filter-count">({enCount})</span></button>
+      <span class="filter-sep" aria-hidden="true">/</span>
+      <button type="button" class="filter-item" data-filter="topic:history">History & Politics</button>
+      <span class="filter-sep" aria-hidden="true">/</span>
+      <button type="button" class="filter-item" data-filter="topic:craft">Craft & Cognition</button>
+      <span class="filter-sep" aria-hidden="true">/</span>
+      <button type="button" class="filter-item" data-filter="topic:sport">Sports & Culture</button>
+      <span class="filter-sep" aria-hidden="true">/</span>
+      <button type="button" class="filter-item" data-filter="topic:reflection">Solitude & Reflection</button>
     </div>
 
     <!-- Empty State -->
     <div id="archiveEmptyState" class="archive-empty-state" style="display: none;">
-      <p>No essays match your current filter or search query.</p>
+      <p>No essays match your current filter.</p>
       <button id="resetFilterBtn" type="button" class="reset-filter-link">Reset all filters</button>
     </div>
 
@@ -164,7 +152,6 @@ function formatDay(date: Date) {
                     class="archive-item" 
                     data-lang={post.lang}
                     data-topic={post.topic}
-                    data-search={post.searchableText}
                   >
                     <time class="archive-day" datetime={post.data.date.toISOString()}>
                       {formatDay(post.data.date)}
@@ -184,8 +171,6 @@ function formatDay(date: Date) {
 
   <script is:inline>
     (function () {
-      const searchInput = document.getElementById('archiveSearch');
-      const clearBtn = document.getElementById('clearSearchBtn');
       const filterItems = document.querySelectorAll('.filter-item');
       const items = document.querySelectorAll('.archive-item');
       const monthGroups = document.querySelectorAll('[data-month-group]');
@@ -195,7 +180,6 @@ function formatDay(date: Date) {
       const resetBtn = document.getElementById('resetFilterBtn');
 
       let currentFilter = 'all';
-      let currentQuery = '';
 
       function updateDisplay() {
         let visibleCount = 0;
@@ -204,7 +188,6 @@ function formatDay(date: Date) {
         items.forEach((item) => {
           const itemLang = item.getAttribute('data-lang');
           const itemTopic = item.getAttribute('data-topic');
-          const itemSearch = item.getAttribute('data-search') || '';
 
           let matchesFilter = true;
           if (currentFilter.startsWith('lang:')) {
@@ -215,12 +198,7 @@ function formatDay(date: Date) {
             matchesFilter = itemTopic === targetTopic;
           }
 
-          let matchesSearch = true;
-          if (currentQuery.trim() !== '') {
-            matchesSearch = itemSearch.includes(currentQuery.toLowerCase().trim());
-          }
-
-          if (matchesFilter && matchesSearch) {
+          if (matchesFilter) {
             item.style.display = 'grid';
             visibleCount++;
           } else {
@@ -260,17 +238,12 @@ function formatDay(date: Date) {
         } else {
           if (emptyStateEl) emptyStateEl.style.display = 'none';
           if (counterEl) {
-            if (currentFilter === 'all' && !currentQuery.trim()) {
+            if (currentFilter === 'all') {
               counterEl.textContent = `Showing all ${visibleCount} essays`;
             } else {
               counterEl.textContent = `Showing ${visibleCount} of ${items.length} essays`;
             }
           }
-        }
-
-        // Toggle clear search button
-        if (clearBtn) {
-          clearBtn.style.display = currentQuery.trim() ? 'inline-flex' : 'none';
         }
       }
 
@@ -284,29 +257,9 @@ function formatDay(date: Date) {
         });
       });
 
-      // Search input handler
-      if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-          currentQuery = e.target.value;
-          updateDisplay();
-        });
-      }
-
-      // Clear search button
-      if (clearBtn) {
-        clearBtn.addEventListener('click', () => {
-          if (searchInput) searchInput.value = '';
-          currentQuery = '';
-          updateDisplay();
-          if (searchInput) searchInput.focus();
-        });
-      }
-
       // Reset filter button in empty state
       if (resetBtn) {
         resetBtn.addEventListener('click', () => {
-          if (searchInput) searchInput.value = '';
-          currentQuery = '';
           currentFilter = 'all';
           filterItems.forEach((b) => b.classList.remove('active'));
           const allBtn = document.querySelector('.filter-item[data-filter="all"]');

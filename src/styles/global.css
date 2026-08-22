@@ -850,64 +850,7 @@ a:focus:not(:focus-visible) {
   margin-bottom: 1.5rem;
 }
 
-/* Archive Search & Filters */
-.archive-controls {
-  margin-bottom: 2.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-}
-
-.archive-search-box {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 0.45rem 0.8rem;
-  transition: border-color 0.15s ease;
-}
-
-.archive-search-box:focus-within {
-  border-color: var(--accent);
-}
-
-.archive-search-box .search-icon {
-  color: var(--text-faint);
-  flex-shrink: 0;
-}
-
-.archive-search-input {
-  background: transparent;
-  border: none;
-  outline: none;
-  font-family: var(--font-mono);
-  font-size: 0.86rem;
-  color: var(--text);
-  width: 100%;
-}
-
-.archive-search-input::placeholder {
-  color: var(--text-faint);
-}
-
-.clear-search-btn {
-  background: none;
-  border: none;
-  color: var(--text-faint);
-  font-size: 1.1rem;
-  cursor: pointer;
-  padding: 0 0.2rem;
-  line-height: 1;
-  display: inline-flex;
-  align-items: center;
-}
-
-.clear-search-btn:hover {
-  color: var(--text);
-}
-
+/* Archive Filters */
 .archive-filters {
   display: flex;
   flex-wrap: wrap;
@@ -916,14 +859,13 @@ a:focus:not(:focus-visible) {
   font-family: var(--font-mono);
   font-size: 0.82rem;
   line-height: 1.6;
+  margin-bottom: 2.25rem;
 }
 
 .filter-label {
   color: var(--text-faint);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
   margin-right: 0.2rem;
   user-select: none;
 }
