@@ -24,7 +24,7 @@ const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 const hasBoth = prevPost && nextPost;
 ---
 
-<Base title={title} description={excerpt}>
+<Base title={title} description={excerpt} showHero={true}>
   <article>
     <nav class="breadcrumbs" aria-label="Breadcrumbs">
       <a href="/">Home</a>
