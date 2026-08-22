@@ -29,7 +29,7 @@ const hasBoth = prevPost && nextPost;
     <nav class="breadcrumbs" aria-label="Breadcrumbs">
       <a href="/">Home</a>
       <span class="arrow">▸</span>
-      <a href="/">Writing</a>
+      <a href="/">Blog</a>
       <span class="arrow">▸</span>
       <span class="current">Current Page</span>
     </nav>
@@ -39,7 +39,7 @@ const hasBoth = prevPost && nextPost;
       <div class="post-meta">
         <time datetime={date.toISOString()}>{formattedDate}</time>
         <span class="meta-sep">/</span>
-        <span>Read time: {readingTime} min</span>
+        <span>{readingTime} min read</span>
       </div>
     </header>
 
