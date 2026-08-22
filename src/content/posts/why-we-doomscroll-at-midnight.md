@@ -1,5 +1,5 @@
 ---
-title: "Revenge Bedtime Procrastination and the Search for Autonomy"
+title: "Stealing Hours from the Dark"
 date: 2026-06-04
 excerpt: "Why we stay up late staring at glowing screens, and how late-night stalling is really a search for unmanaged personal hours."
 tags: ["midnight", "habits", "burnout"]

@@ -1,5 +1,5 @@
 ---
-title: "Kardio, Pelat Karbon, dan Pengejaran Validasi Lima Kilometer"
+title: "Kardio, Pelat Karbon, dan Validasi Minggu Pagi"
 date: 2026-08-21
 excerpt: "Bagaimana kegiatan paling purba dalam sejarah manusia, yaitu mengayunkan kaki di atas tanah, berhasil disulap menjadi ajang pamer metrik fisiologis dan peragaan busana sintetis termahal di kota."
 tags: ["olahraga", "satire", "gaya-hidup", "kota"]

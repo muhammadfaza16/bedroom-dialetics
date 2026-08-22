@@ -1,5 +1,5 @@
 ---
-title: "Organizing Your Life Instead of Living It"
+title: "The Comfort of Endless Scaffolding"
 date: 2026-04-03
 excerpt: "How tweaking note-taking apps, clean desks, and perfect routines become our most convincing disguise for the fear of actually starting."
 tags: ["work", "habits", "psychology"]
